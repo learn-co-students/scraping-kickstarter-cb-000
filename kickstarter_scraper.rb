@@ -14,13 +14,15 @@ def create_project_hash
     project_img = project.css(".project-thumbnail a img").attr("src").value
     project_description = project.css("p.bbcard_blurb").text.strip
     project_location = project.css(".location-name").text
-    project_percent_funded = project.css("li.first.funded").text.match(/\d+%/)
+    project_percent_funded = project.css("li.first.funded").text.scan(/\d+/)[0].to_i
+    # binding.pry
 
     projects[project_name] = {
-      image_link: project_img
-      description: project_description
-      location: project_location
-      percent_funded: project_percent_funded
+      image_link: project_img,
+      description: project_description,
+      location: project_location,
+      percent_funded: project_percent_funded,
     }
   end
+  projects
 end
